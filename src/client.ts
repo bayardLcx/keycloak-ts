@@ -459,7 +459,7 @@ export class KeycloakClient implements KeycloakInstance {
 
           if (tokenResponse.error) {
             this.clearToken();
-            throw new Error(tokenResponse.error);
+            throw (tokenResponse);
           } else {
             this.logInfo('[KEYCLOAK] Token refreshed');
 
@@ -494,7 +494,7 @@ export class KeycloakClient implements KeycloakInstance {
             p != null;
             p = this.refreshQueue.pop()
           ) {
-            p.reject(true);
+            p.reject(err);
           }
         }
       }
@@ -796,11 +796,13 @@ export class KeycloakClient implements KeycloakInstance {
           this.onAuthSuccess && this.onAuthSuccess();
         } catch (error) {
           // Notify onAuthError event handler if set
-          this.onAuthError &&
-            this.onAuthError({
-              error,
-              error_description: 'Failed to refresh token during init',
-            });
+          // this.onAuthError &&
+          //   this.onAuthError({
+          //     error,
+          //     error_description: 'Failed to refresh token during init',
+          //   });
+           this.onAuthError &&
+              this.onAuthError(error);
 
           if (initOptions.onLoad) {
             this.onLoad(initOptions);
