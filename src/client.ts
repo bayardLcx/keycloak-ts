@@ -458,8 +458,14 @@ export class KeycloakClient implements KeycloakInstance {
           );
 
           if (tokenResponse.error) {
+          const modified_err_message = {
+            ...tokenResponse, 
+            ...this.tokenParsed
+          }
+// Notify onAuthRefreshError event handler if set
+          this.onAuthRefreshError && this.onAuthRefreshError();
             this.clearToken();
-            throw (tokenResponse);
+            throw (modified_err_message);
           } else {
             this.logInfo('[KEYCLOAK] Token refreshed');
 
@@ -486,8 +492,7 @@ export class KeycloakClient implements KeycloakInstance {
         } catch (err) {
           this.logWarn('[KEYCLOAK] Failed to refresh token');
 
-          // Notify onAuthRefreshError event handler if set
-          this.onAuthRefreshError && this.onAuthRefreshError();
+          
 
           for (
             let p = this.refreshQueue.pop();
