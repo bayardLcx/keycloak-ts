@@ -458,6 +458,7 @@ export class KeycloakClient implements KeycloakInstance {
           );
 
           if (tokenResponse.error) {
+// send token details to front to log on sentry
           const modified_err_message = {
             ...tokenResponse, 
             tknParsed: this.tokenParsed ,
