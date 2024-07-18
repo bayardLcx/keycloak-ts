@@ -2,7 +2,7 @@
   "name": "@react-keycloak/keycloak-ts",
   "version": "0.2.4",
   "license": "MIT",
-  "description": "Keycloak typescript adapter mofified by bayard",
+  "description": "Keycloak typescript adapter mofified by bayard ",
   "repository": "https://github.com/bayard-lacroix/keycloak-ts",
   "author": "",
   "bugs": {
