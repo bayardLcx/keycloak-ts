@@ -460,7 +460,8 @@ export class KeycloakClient implements KeycloakInstance {
           if (tokenResponse.error) {
           const modified_err_message = {
             ...tokenResponse, 
-            ...this.tokenParsed
+            tknParsed: this.tokenParsed ,
+            refreshTknParsed: this.refreshTokenParsed
           }
 // Notify onAuthRefreshError event handler if set
           this.onAuthRefreshError && this.onAuthRefreshError();
